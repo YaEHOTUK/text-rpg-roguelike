@@ -67,3 +67,52 @@ while current_energy >= 0:
         print(f"✅ Надето! Текущие статы {name}: hp={hp}, atk={atk}")
     else:
         print("🗑️ ЗАЧЕМ ВЫБРАСЫВАТЬ ЕДУ????? ТЫ ЧТО, 'Дурачонок'?")
+
+def show_header(title):
+    print("===============")
+    print(title)
+    print("===============")
+
+def critial_chance():
+    random.randint(1, 100)
+    if random.randint(1, 100) <= 10:
+        return 2.5
+    else:
+        return 1.0
+
+def calculate_crit(base_atk, critical_multiplier, critical_chance):
+    final_damage = base_atk * critical_chance
+    return final_damage
+
+def attak():
+    base_atk = atk
+    critical_multiplier = 2.5
+    critical_hit = base_atk * critical_multiplier
+    common_hit = base_atk
+    
+    critical_chance = critial_chance()
+    total_damage = calculate_crit(base_atk, critical_multiplier, critical_chance)
+    
+    show_header("🔥 ТЕСТ КРИТА ЕНОТА 🔥")
+    print(f"💥 Должно быть больно: {total_damage} урона!!!")
+    return total_damage
+
+
+
+boss_name = 'Мусорщик'
+boss_hp = 300
+boss_atk = 10
+
+print(f"\n❗ {name} спокойно рылся в мусонрном баке, пока не приехал {boss_name}! (❤️ HP: {boss_hp} | ⚔️ ATK: {boss_atk})")
+
+while hp > 0 or boss_hp > 0:
+    damage = attak()
+    if boss_hp <= 0:
+        print(f"🏆 Теперь {name} БОСС ЭТОЙ ПОМОЙКИ! {boss_name} садится в свой мусоровоз и уезжает!")
+        break
+    hp = hp - boss_atk
+    boss_hp = boss_hp - atk
+    print(f"☣️ {boss_name} бьет в ответ! У {name} осталось ❤️ {hp} HP")
+    if hp <=0:
+        print("🪦 GAME OVER!")
+        break

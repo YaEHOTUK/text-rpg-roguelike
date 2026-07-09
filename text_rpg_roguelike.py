@@ -56,15 +56,16 @@ while current_energy >= 0:
         loot_atk = random.randint(-20, -10)
         item_name = (f"Разложившийся кусок пиццы (хп: {loot_hp}, атака: {loot_atk})")
 
+    os.system("clear")
     backpack.append(item_name)
     print(item_name)
-    print(f"\n 🟢 Содержимое сумки: {backpack}")
-    action = input("\n🤔 Надеть этот артефакт? (1 — Да, 2 — Выбросить):")
+    print(f"\n🟢 {name} уже нашел: {backpack}")
+    action = input("\n🤔 Съешь или выбросишь? (1 — Съесть, 2 — Выбросить):")
     if action == "1":
         hp = hp + loot_hp
         atk = atk + loot_atk
         backpack.append(item_name)
-        print(f"✅ Надето! Текущие статы {name}: hp={hp}, atk={atk}")
+        print(f"✅ Съедено! Текущие статы {name}: hp={hp}, atk={atk}")
     else:
         print("🗑️ ЗАЧЕМ ВЫБРАСЫВАТЬ ЕДУ????? ТЫ ЧТО, 'Дурачонок'?")
 
@@ -103,6 +104,7 @@ boss_name = 'Мусорщик'
 boss_hp = 300
 boss_atk = 10
 
+os.system("clear")
 print(f"\n❗ {name} спокойно рылся в мусонрном баке, пока не приехал {boss_name}! (❤️ HP: {boss_hp} | ⚔️ ATK: {boss_atk})")
 
 while hp > 0 or boss_hp > 0:

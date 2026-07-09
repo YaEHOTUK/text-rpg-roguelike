@@ -1,4 +1,4 @@
-import os
+import os, time
 os.system("clear")
 print("===========================================")
 print(" ⚔️  EHOT VS CROISSANT: TEXT ROGUELIKE  ⚔️ ")
@@ -25,7 +25,7 @@ elif choice == "2":
 else:
    print("\n⚠️ Ошибка детекции IQ! Обнаружен скрытый класс...") 
    name = 'Дурачонок'
-   hp = 20
+   hp = 80
    atk = 6
    hero_energy = 140
 print(f"{name}, здоровье =  {hp}, атака = {atk} ")
@@ -34,7 +34,7 @@ import random
 
 max_energy = hero_energy
 current_energy = hero_energy
-print(f"⚡ Текущая энергия Енота: {current_energy}/{max_energy}")
+print(f"⚡ Текущая энергия {name}: {current_energy}/{max_energy}")
 
 
 backpack = []
@@ -93,8 +93,8 @@ def attak():
     critical_chance = critial_chance()
     total_damage = calculate_crit(base_atk, critical_multiplier, critical_chance)
     
-    show_header("🔥 ТЕСТ КРИТА ЕНОТА 🔥")
-    print(f"💥 Должно быть больно: {total_damage} урона!!!")
+    # show_header("🔥 ТЕСТ КРИТА ЕНОТА 🔥")
+    # print(f"💥 Должно быть больно: {total_damage} урона!!!")
     return total_damage
 
 
@@ -107,12 +107,17 @@ print(f"\n❗ {name} спокойно рылся в мусонрном баке,
 
 while hp > 0 or boss_hp > 0:
     damage = attak()
-    if boss_hp <= 0:
-        print(f"🏆 Теперь {name} БОСС ЭТОЙ ПОМОЙКИ! {boss_name} садится в свой мусоровоз и уезжает!")
-        break
+    bar_enot = "█" * int(hp // 20) + "░" * int(10 - (hp // 20))
+    bar_boss = "█" * int(boss_hp // 30) + "░" * int(10 - (boss_hp // 30))
+    
     hp = hp - boss_atk
-    boss_hp = boss_hp - atk
-    print(f"☣️ {boss_name} бьет в ответ! У {name} осталось ❤️ {hp} HP")
+    boss_hp = boss_hp - damage
+    
+    print(f"\r🦝 {name}: \033[32m[{bar_enot}]\033[0m {hp} HP ({name} укусил на: {damage})| 🗑️ {boss_name}: \033[31m[{bar_boss}]\033[0m {boss_hp} HP ({boss_name} нанес урон: {boss_atk})", end="", flush=True)
+    time.sleep(3)
     if hp <=0:
-        print("🪦 GAME OVER!")
+            print("\n🪦 GAME OVER!")
+            break
+    if boss_hp <= 0:
+        print(f"\n🏆 Теперь {name} БОСС ЭТОЙ ПОМОЙКИ! {boss_name} садится в свой мусоровоз и уезжает!")
         break
